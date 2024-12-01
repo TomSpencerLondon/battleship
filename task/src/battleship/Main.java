@@ -3,6 +3,7 @@ package battleship;
 import battleship.domain.Board;
 import battleship.domain.Position;
 import battleship.domain.ShipType;
+import battleship.domain.ShotResult;
 import battleship.ui.BoardView;
 import battleship.ui.Coordinate;
 import battleship.ui.Printer;
@@ -33,9 +34,11 @@ public class Main {
         Printer.printBoard(board, BoardView.FOG_OF_WAR);
 
         Printer.printTakeShot();
-        takeShot(scanner, board);
 
-        Printer.printBoard(board, BoardView.FULL_VIEW);
+        while (!board.allShipsSunk()) {
+            takeShot(scanner, board);
+        }
+
     }
 
     private static void placeShip(ShipType ship, Scanner scanner, Board board) {
@@ -103,15 +106,24 @@ public class Main {
                 continue;
             }
 
-            board.registerShot(new Position(coordinate.getRow(), coordinate.getColumn()));
+            Position shotPosition = new Position(coordinate.getRow(), coordinate.getColumn());
+            board.registerShot(shotPosition);
             Printer.printBoard(board, BoardView.FOG_OF_WAR);
 
-            switch (board.lastShotResult()) {
+            ShotResult lastShotResult = board.lastShotResult();
+            switch (lastShotResult) {
                 case HIT:
-                    Printer.printMessage("You hit a ship!");
+                    Printer.printMessage("You hit a ship! Try again:");
                     break;
                 case MISS:
-                    Printer.printMessage("You missed!");
+                    Printer.printMessage("You missed! Try again: ");
+                    break;
+                case SUNK:
+                    Printer.printMessage("You sank a ship! Specify a new target:");
+                    break;
+                case ALL_SHIPS_SUNK:
+                    Printer.printMessage("You sank the last ship. You won. Congratulations!");
+                    break;
             }
 
             break;

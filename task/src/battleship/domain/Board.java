@@ -11,12 +11,14 @@ public class Board {
     private final List<Position> occupiedPositions;
     private final List<Position> hitPositions;
     private final List<Position> missPositions;
+    private final List<Ship> ships;
     private ShotResult lastShotResult;
 
     public Board() {
         occupiedPositions = new ArrayList<>();
         hitPositions = new ArrayList<>();
         missPositions = new ArrayList<>();
+        ships = new ArrayList<>();
         this.lastShotResult = ShotResult.NONE;
     }
 
@@ -33,26 +35,24 @@ public class Board {
     }
 
     public void registerShot(Position position) {
-        if (hasShipIn(position)) {
-            hitPositions.add(position);
-            lastShotResult = ShotResult.HIT;
-        } else {
+        if (!hasShipIn(position)) {
             missPositions.add(position);
             lastShotResult = ShotResult.MISS;
+            return;
+        }
+
+        hitPositions.add(position);
+        lastShotResult = ShotResult.HIT;
+
+        if (isSunk(position)) {
+            handleSunkShip();
         }
     }
 
-    public void markAsHit(Position position) {
-        if (!hitPositions.contains(position)) {
-            hitPositions.add(position);
-        }
+    private void handleSunkShip() {
+        lastShotResult = allShipsSunk() ? ShotResult.ALL_SHIPS_SUNK : ShotResult.SUNK;
     }
 
-    public void markAsMiss(Position position) {
-        if (!missPositions.contains(position)) {
-            missPositions.add(position);
-        }
-    }
 
     public void occupy(Position first, Position second) {
         Direction direction = first.row() == second.row() ? Direction.HORIZONTAL : Direction.VERTICAL;
@@ -60,15 +60,20 @@ public class Board {
         AdjacentChecker checker = AdjacentCheckerFactory.createChecker(this, direction);
         checker.checkForAdjacentPositions(first, second);
 
+        List<Position> newShipPositions = new ArrayList<>();
+
         if (first.row() == second.row()) {
-            occupyHorizontally(first, second);
+            newShipPositions = occupyHorizontally(first, second);
         } else {
-            occupyVertically(first, second);
+            newShipPositions = occupyVertically(first, second);
         }
+
+        ships.add(new Ship(newShipPositions));
     }
 
 
-    private void occupyVertically(Position first, Position second) {
+    private List<Position> occupyVertically(Position first, Position second) {
+        List<Position> positions = new ArrayList<>();
         int rowStart = Math.min(first.row(), second.row());
         int rowEnd = Math.max(first.row(), second.row());  // Get the ending row
         int col = first.col();
@@ -79,10 +84,14 @@ public class Board {
                 throw new PositionOccupiedException("You placed it too close to another one. Try again:");
             }
             occupiedPositions.add(vertical);
+            positions.add(vertical);
         }
+
+        return positions;
     }
 
-    private void occupyHorizontally(Position first, Position second) {
+    private List<Position> occupyHorizontally(Position first, Position second) {
+        List<Position> positions = new ArrayList<>();
         int row = first.row();
         int colStart = Math.min(first.col(), second.col());
         int colEnd = Math.max(first.col(), second.col());  // Get the ending column
@@ -93,7 +102,30 @@ public class Board {
                 throw new PositionOccupiedException("You placed it too close to another one. Try again:");
             }
             occupiedPositions.add(horizontal);
+            positions.add(horizontal);
         }
+
+        return positions;
+    }
+
+    public boolean isSunk(Position position) {
+        for (Ship ship : ships) {
+            if (ship.contains(position) && ship.isSunk(hitPositions)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean allShipsSunk() {
+        for (Ship ship : ships) {
+            if (!ship.isSunk(hitPositions)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean isHit(Position position) {
