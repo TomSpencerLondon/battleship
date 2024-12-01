@@ -1,6 +1,7 @@
-package battleship.ui;
+package battleship.ui.validation;
 
 import battleship.domain.ShipType;
+import battleship.ui.Coordinate;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class LengthValidator implements PlacementValidator {
         int length = calculateShipLength(start, end);
 
         if (!ship.isValidLength(length)) {
-            throw new ShipPlacementException(String.format("Error! Wrong length of the %s! Try again:", ship.getName()));
+            throw new ShipPlacementException(String.format("Wrong length of the %s! Try again:", ship.getName()));
         }
         return true;
     }

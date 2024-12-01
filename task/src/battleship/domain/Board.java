@@ -76,7 +76,7 @@ public class Board {
         for (int i = rowStart; i <= rowEnd; i++) {
             Position vertical = new Position(rowStart++, col);
             if (occupiedPositions.contains(vertical)) {
-                throw new PositionOccupiedException("Error! You placed it too close to another one. Try again:");
+                throw new PositionOccupiedException("You placed it too close to another one. Try again:");
             }
             occupiedPositions.add(vertical);
         }
@@ -90,7 +90,7 @@ public class Board {
         for (int i = colStart; i <= colEnd; i++) {
             Position horizontal = new Position(row, colStart++);
             if (occupiedPositions.contains(horizontal)) {
-                throw new PositionOccupiedException("Error! You placed it too close to another one. Try again:");
+                throw new PositionOccupiedException("You placed it too close to another one. Try again:");
             }
             occupiedPositions.add(horizontal);
         }

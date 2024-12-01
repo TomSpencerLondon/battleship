@@ -1,8 +1,8 @@
-package battleship.ui;
+package battleship.ui.validation;
 
 import battleship.domain.Board;
 import battleship.domain.Position;
-import battleship.domain.ShipType;
+import battleship.ui.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +25,13 @@ public class ProximityValidator implements PlacementValidator {
         List<Integer> end = coordinates.get(1).indices();
 
         if (isPositionOccupied(board, start) || isPositionOccupied(board, end)) {
-            throw new ShipPlacementException("Error! You placed it too close to another one. Try again:");
+            throw new ShipPlacementException("You placed it too close to another one. Try again:");
         }
 
         // Check if all parts of the ship's range are occupied
         for (Position position : getShipParts(start, end)) {
             if (board.hasShipIn(position)) {
-                throw new ShipPlacementException("Error! You placed it too close to another one. Try again:");
+                throw new ShipPlacementException("You placed it too close to another one. Try again:");
             }
         }
 

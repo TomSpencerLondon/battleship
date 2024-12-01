@@ -1,7 +1,8 @@
-package battleship.ui;
+package battleship.ui.validation;
 
 import battleship.domain.Board;
 import battleship.domain.ShipType;
+import battleship.ui.*;
 
 import java.util.List;
 
