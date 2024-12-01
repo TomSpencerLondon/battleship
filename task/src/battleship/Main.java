@@ -85,18 +85,14 @@ public class Main {
     private static void takeShot(Scanner scanner, Board board) {
         while(true) {
             String input = scanner.nextLine();
+            Coordinate coordinate = new Coordinate(input);
 
-            if (!isValidCoordinate(input)) {
+            if (!coordinate.isValid()) {
                 System.out.println("Error! You entered the wrong coordinates! Try again:");
                 continue;
             }
 
-            List<Integer> indices = getIndices(input);
-
-            int row = indices.get(0);
-            int col = indices.get(1);
-
-            board.registerShot(new Position(row, col));
+            board.registerShot(new Position(coordinate.getRow(), coordinate.getColumn()));
             printGame(board);
 
             switch (board.lastShotResult()) {
@@ -109,20 +105,6 @@ public class Main {
 
             break;
         }
-    }
-
-    private static boolean isValidCoordinate(String coordinate) {
-        // Ensure coordinate is non-null and follows the valid pattern
-        if (coordinate == null || !coordinate.matches("^[A-J](10|[1-9])$")) {
-            return false;
-        }
-
-        // Extract row and column values
-        char row = coordinate.charAt(0);
-        int col = Integer.parseInt(coordinate.substring(1));
-
-        // Validate the row and column range explicitly (redundant due to regex but more explicit)
-        return row >= 'A' && row <= 'J' && col >= 1 && col <= 10;
     }
 
     // Method to get valid coordinates for the ship placement
