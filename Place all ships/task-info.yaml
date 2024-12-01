@@ -1,0 +1,59 @@
+type: edu
+files:
+  - name: src/battleship/Main.java
+    visible: true
+    learner_created: false
+  - name: test/Tests.java
+    visible: false
+    learner_created: false
+  - name: src/battleship/validation/PositionOccupiedError.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/Position.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/Board.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ShipType.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/Direction.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentCheckerFactory.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/RowAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/ColumnAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipPlacementValidationStrategy.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/CoordinateValidationStrategy.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipLengthValidationStrategy.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipLocationValidationStrategy.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ProximityValidationStrategy.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipPlacementException.java
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/projects/383/stages/2282/implement#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 30 Nov 2024 14:25:45 UTC"
+record: 1

@@ -1,0 +1,68 @@
+type: edu
+files:
+  - name: src/battleship/Main.java
+    visible: true
+    learner_created: false
+  - name: src/battleship/domain/Board.java
+    visible: true
+    learner_created: false
+  - name: src/battleship/domain/Position.java
+    visible: true
+    learner_created: false
+  - name: src/battleship/domain/ShipType.java
+    visible: true
+    learner_created: false
+  - name: test/Tests.java
+    visible: false
+    learner_created: false
+  - name: src/battleship/validation/ColumnAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/PlacementValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/CoordinateValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/LocationValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ProximityValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/PositionOccupiedError.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/RowAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Direction.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentCheckerFactory.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/LengthValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipPlacementException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/ShotResult.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/InvalidCoordinateException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/Coordinate.java
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/projects/383/stages/2283/implement#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sun, 01 Dec 2024 06:07:56 UTC"
+record: 3
