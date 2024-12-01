@@ -4,21 +4,102 @@ files:
   - name: src/battleship/Main.java
     visible: true
     learner_created: false
-  - name: src/battleship/Board.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/Position.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/ShipType.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/PositionOccupiedError.java
-    visible: true
-    learner_created: false
   - name: test/Tests.java
     visible: false
     learner_created: false
+  - name: src/battleship/ui/PlacementValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/ColumnAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/ShotResult.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/LocationValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/InvalidCoordinateException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/CoordinateValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Direction.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/Coordinate.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Board.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ShipPlacementException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/LengthValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/ProximityValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/PositionOccupiedError.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/RowAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentCheckerFactory.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Position.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/ShipType.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/383/stages/2284/implement#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: "Wrong answer in test #1\n\nAfter the game starts you should print an empty\
+    \ battle field!\n\nPlease find below the output of your program during this failed\
+    \ test.\nNote that the &#39;&gt;&#39; character indicates the beginning of the\
+    \ input line.\n\n---\n\n1 2 3 4 5 6 7 8 9 10 \nA ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nB ~ ~ ~\
+    \ ~ ~ ~ ~ ~ ~ ~ \nC ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nD ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nE ~ ~ ~ ~ ~\
+    \ ~ ~ ~ ~ ~ \nF ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nG ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~\
+    \ ~ ~ ~ \nI ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nEnter the coordinates\
+    \ of the Aircraft Carrier (5 cells):\n&gt; F3 F7\n  1 2 3 4 5 6 7 8 9 10 \nA ~\
+    \ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nB ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nC ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nD ~ ~ ~\
+    \ ~ ~ ~ ~ ~ ~ ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nF ~ ~ O O O O O ~ ~ ~ \nG ~ ~ ~ ~ ~\
+    \ ~ ~ ~ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ ~ ~ ~ ~ ~ ~\
+    \ ~ ~ ~ \nEnter the coordinates of the Battleship (4 cells):\n&gt; A1 D1\n  1\
+    \ 2 3 4 5 6 7 8 9 10 \nA O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nB O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nC O ~ ~\
+    \ ~ ~ ~ ~ ~ ~ ~ \nD O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nF ~ ~ O O O\
+    \ O O ~ ~ ~ \nG ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI ~ ~ ~ ~ ~ ~ ~\
+    \ ~ ~ ~ \nJ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nEnter the coordinates of the Submarine (3 cells):\n\
+    &gt; J7 J10\nError! Wrong length of the Submarine! Try again:\nEnter the coordinates\
+    \ of the Submarine (3 cells):\n&gt; J10 J8\n  1 2 3 4 5 6 7 8 9 10 \nA O ~ ~ ~\
+    \ ~ ~ ~ ~ ~ ~ \nB O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nC O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nD O ~ ~ ~ ~ ~\
+    \ ~ ~ ~ ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nF ~ ~ O O O O O ~ ~ ~ \nG ~ ~ ~ ~ ~ ~ ~ ~\
+    \ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ ~ ~ ~ ~ ~ ~ O O O\
+    \ \nEnter the coordinates of the Cruiser (3 cells):\n&gt; B9 D8\nError! Wrong\
+    \ ship location! Try again:\nEnter the coordinates of the Cruiser (3 cells):\n\
+    &gt; B9 D9\n  1 2 3 4 5 6 7 8 9 10 \nA O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nB O ~ ~ ~ ~ ~ ~ ~\
+    \ O ~ \nC O ~ ~ ~ ~ ~ ~ ~ O ~ \nD O ~ ~ ~ ~ ~ ~ ~ O ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\
+    \ \nF ~ ~ O O O O O ~ ~ ~ \nG ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI\
+    \ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ ~ ~ ~ ~ ~ ~ O O O \nEnter the coordinates of the Destroyer\
+    \ (2 cells):\n&gt; E6 D6\nError! You placed it too close to another one. Try again:\n\
+    Enter the coordinates of the Destroyer (2 cells):\n&gt; I2 J2\n  1 2 3 4 5 6 7\
+    \ 8 9 10 \nA O ~ ~ ~ ~ ~ ~ ~ ~ ~ \nB O ~ ~ ~ ~ ~ ~ ~ O ~ \nC O ~ ~ ~ ~ ~ ~ ~ O\
+    \ ~ \nD O ~ ~ ~ ~ ~ ~ ~ O ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nF ~ ~ O O O O O ~ ~ ~ \n\
+    G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nH ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI ~ O ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ O\
+    \ ~ ~ ~ ~ ~ O O O \nThe game starts!\n  1 2 3 4 5 6 7 8 9 10 \nA O ~ ~ ~ ~ ~ ~\
+    \ ~ ~ ~ \nB O ~ ~ ~ ~ ~ ~ ~ O ~ \nC O ~ ~ ~ ~ ~ ~ ~ O ~ \nD O ~ ~ ~ ~ ~ ~ ~ O\
+    \ ~ \nE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nF ~ ~ O O O O O ~ ~ ~ \nG ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \n\
+    H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \nI ~ O ~ ~ ~ ~ ~ ~ ~ ~ \nJ ~ O ~ ~ ~ ~ ~ O O O \nTake a\
+    \ shot!"
+  time: "Sun, 01 Dec 2024 06:32:36 UTC"
+record: 4

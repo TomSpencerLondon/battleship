@@ -19,7 +19,7 @@ public class RowAdjacentChecker implements AdjacentChecker {
         for (int col = colStart; col <= colEnd; col++) {
             Position adjacent = new Position(row, col);
             if (isAdjacentOccupied(adjacent, board.occupiedPositions())) {
-                throw new PositionOccupiedError(); // Error if adjacent position is occupied
+                throw new PositionOccupiedException("Error! You placed it too close to another one. Try again:"); // Error if adjacent position is occupied
             }
         }
     }

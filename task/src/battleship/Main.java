@@ -4,7 +4,7 @@ import battleship.domain.Board;
 import battleship.domain.Position;
 import battleship.domain.ShipType;
 import battleship.ui.*;
-import battleship.validation.PositionOccupiedError;
+import battleship.validation.PositionOccupiedException;
 
 import java.util.*;
 
@@ -19,12 +19,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         for (ShipType ship : ShipType.values()) {
-            try {
-                placeShip(ship, scanner, board);
-            } catch (ShipPlacementException e) {
-                System.out.println(e.getMessage());
-                placeShip(ship, scanner, board);
-            }
+            System.out.printf("Enter the coordinates of the %s (%d cells):%n", ship.getName(), ship.getCells());
+            placeShip(ship, scanner, board);
         }
 
         System.out.println("The game starts!");
@@ -38,17 +34,19 @@ public class Main {
     }
 
     private static void placeShip(ShipType ship, Scanner scanner, Board board) {
-        System.out.printf("Enter the coordinates of the %s (%d cells):%n", ship.getName(), ship.getCells());
-
         Coordinate start, end;
         int length;
 
         // Loop until ship is placed correctly
         while (true) {
-            // Request valid coordinates and calculate length
-            List<Coordinate> coordinates = getCoordinatesWithRetry(scanner, ship, board);
-            start = coordinates.get(0);
-            end = coordinates.get(1);
+            try {
+                List<Coordinate> coordinates = getCoordinatesWithRetry(scanner, ship, board);
+                start = coordinates.get(0);
+                end = coordinates.get(1);
+            } catch (ShipPlacementException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
 
             // Calculate the ship's length
             length = calculateShipLength(start, end);
@@ -66,13 +64,12 @@ public class Main {
         try {
             board.occupy(new Position(start.getRow(), start.getColumn()), new Position(end.getRow(), end.getColumn()));
             printGame(board);
-        } catch (PositionOccupiedError e) {
-            System.out.println("Error! You placed it too close to another one. Try again:");
+        } catch (PositionOccupiedException | ShipPlacementException e) {
+            System.out.println(e.getMessage());
             placeShip(ship, scanner, board); // Retry if the position is occupied
         }
     }
 
-    // Helper method to get valid coordinates with retry mechanism
     private static List<Coordinate> getCoordinatesWithRetry(Scanner scanner, ShipType ship, Board board) {
         List<Coordinate> coordinates = null;
         while (coordinates == null) {
@@ -100,6 +97,7 @@ public class Main {
             int col = indices.get(1);
 
             board.registerShot(new Position(row, col));
+            printGame(board);
 
             switch (board.lastShotResult()) {
                 case HIT:
@@ -109,7 +107,6 @@ public class Main {
                     System.out.println("You missed!");
             }
 
-            printGame(board);
             break;
         }
     }
