@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-01T07:18:27" hostname="tspencers-MacBook-Pro.local" time="0.17">
+<testsuite name="Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-01T08:14:50" hostname="tspencers-MacBook-Pro.local" time="0.168">
   <properties/>
-  <testcase name="start" classname="Tests" time="0.17"/>
+  <testcase name="start" classname="Tests" time="0.168"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
   1 2 3 4 5 6 7 8 9 10 

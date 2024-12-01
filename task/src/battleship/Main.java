@@ -109,12 +109,7 @@ public class Main {
 
     // Method to get valid coordinates for the ship placement
     private static List<Coordinate> getValidCoordinates(ShipType ship, Scanner scanner, Board board) {
-        List<PlacementValidator> validationStrategies = List.of(
-                new CoordinateValidator(),
-                new LengthValidator(),
-                new LocationValidator(),
-                new ProximityValidator()
-        );
+        PlacementValidator compositeValidator = new CompositePlacementValidator(board, ship);
 
         // Keep requesting input until it's valid
         while (true) {
@@ -124,24 +119,17 @@ public class Main {
 
             // Convert input to Coordinates
             for (String coordinate : coordinatesInput) {
-                coordinates.add(new Coordinate(coordinate)); // Now using Coordinate class
+                coordinates.add(new Coordinate(coordinate));
             }
 
-            boolean isValid = true;
-            for (PlacementValidator strategy : validationStrategies) {
-                if (!strategy.validate(board, ship, coordinates)) {
-                    isValid = false;
-                    break;
-                }
-            }
-
-            if (isValid) {
+            if (compositeValidator.validate(coordinates)) {
                 return coordinates;
             } else {
                 throw new InvalidCoordinateException("Invalid coordinates or placement.");
             }
         }
     }
+
 
 
     private static void printGame(Board board) {

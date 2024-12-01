@@ -1,15 +1,12 @@
 package battleship.ui;
 
-import battleship.domain.Board;
-import battleship.domain.ShipType;
-
 import java.util.List;
 import java.util.Objects;
 
 public class LocationValidator implements PlacementValidator {
 
     @Override
-    public boolean validate(Board board, ShipType ship, List<Coordinate> coordinates) {
+    public boolean validate(List<Coordinate> coordinates) {
         List<Integer> start = coordinates.get(0).indices();
         List<Integer> end = coordinates.get(1).indices();
 

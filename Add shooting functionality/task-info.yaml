@@ -60,9 +60,12 @@ files:
   - name: src/battleship/ui/Coordinate.java
     visible: true
     learner_created: true
+  - name: src/battleship/ui/CompositePlacementValidator.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/383/stages/2283/implement#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: "Sun, 01 Dec 2024 07:18:27 UTC"
+  time: "Sun, 01 Dec 2024 08:14:50 UTC"
 record: 3
