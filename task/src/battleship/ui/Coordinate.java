@@ -8,9 +8,16 @@ public class Coordinate {
     private final int column;
 
     // Constructor to create a Coordinate object from a string, e.g., "A1", "B3"
-    public Coordinate(String coordinate) {
-        this.row = coordinate.charAt(0) - 'A';
-        this.column = Integer.parseInt(coordinate.substring(1)) - 1;
+    public Coordinate(String input) {
+        if (input.length() < 2) {
+            throw new IllegalArgumentException("Invalid coordinate format");
+        }
+
+        char rowChar = input.charAt(0);
+        int col = Integer.parseInt(input.substring(1));
+
+        this.row = rowChar - 'A'; // Convert 'A'-'J' to 0-9
+        this.column = col - 1;   // Convert 1-10 to 0-9
     }
 
     // Getter methods for row and column

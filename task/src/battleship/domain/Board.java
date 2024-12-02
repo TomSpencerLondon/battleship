@@ -1,5 +1,6 @@
 package battleship.domain;
 
+import battleship.ui.Coordinate;
 import battleship.validation.AdjacentChecker;
 import battleship.validation.AdjacentCheckerFactory;
 import battleship.validation.PositionOccupiedException;
@@ -30,27 +31,25 @@ public class Board {
         return occupiedPositions.contains(position);
     }
 
-    public ShotResult lastShotResult() {
-        return lastShotResult;
-    }
-
-    public void registerShot(Position position) {
+    public ShotResult registerShot(Position position) {
         if (!hasShipIn(position)) {
             missPositions.add(position);
             lastShotResult = ShotResult.MISS;
-            return;
+            return lastShotResult;
         }
 
         hitPositions.add(position);
         lastShotResult = ShotResult.HIT;
 
         if (isSunk(position)) {
-            handleSunkShip();
+            lastShotResult = handleSunkShip();
         }
+
+        return lastShotResult;
     }
 
-    private void handleSunkShip() {
-        lastShotResult = allShipsSunk() ? ShotResult.ALL_SHIPS_SUNK : ShotResult.SUNK;
+    private ShotResult handleSunkShip() {
+        return allShipsSunk() ? ShotResult.ALL_SHIPS_SUNK : ShotResult.SUNK;
     }
 
 
@@ -135,4 +134,12 @@ public class Board {
     public boolean isMiss(Position position) {
         return missPositions.contains(position);
     }
+
+    public boolean isWithinBounds(Coordinate coordinate) {
+        int row = coordinate.getRow();
+        int column = coordinate.getColumn();
+
+        return row >= 0 && row < 10 && column >= 0 && column < 10; // Assuming 10x10 board
+    }
+
 }

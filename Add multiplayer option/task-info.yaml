@@ -3,21 +3,91 @@ files:
   - name: src/battleship/Main.java
     visible: true
     learner_created: false
-  - name: src/battleship/Board.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/Position.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/ShipType.java
-    visible: true
-    learner_created: false
-  - name: src/battleship/PositionOccupiedError.java
-    visible: true
-    learner_created: false
   - name: test/Tests.java
     visible: false
     learner_created: false
+  - name: src/battleship/ui/validation/PlacementValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/ShotResult.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/ColumnAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/BoardView.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/LengthValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/InvalidCoordinateException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Ship.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/CoordinateValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/LocationValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Direction.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/Coordinate.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Board.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/ProximityValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/Printer.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/PositionOccupiedException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/ShipPlacementException.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/validation/CompositePlacementValidator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/RowAdjacentChecker.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/validation/AdjacentCheckerFactory.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/Position.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/ShipType.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/GameMediator.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/domain/PlayerTurn.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/Prompt.java
+    visible: true
+    learner_created: true
+  - name: src/battleship/ui/PromptAction.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/383/stages/2286/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Mon, 02 Dec 2024 04:13:42 UTC"
+record: 6

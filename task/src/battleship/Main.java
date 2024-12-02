@@ -1,152 +1,59 @@
 package battleship;
 
-import battleship.domain.Board;
-import battleship.domain.Position;
+import battleship.domain.PlayerTurn;
 import battleship.domain.ShipType;
 import battleship.domain.ShotResult;
-import battleship.ui.BoardView;
-import battleship.ui.Coordinate;
-import battleship.ui.Printer;
-import battleship.ui.validation.CompositePlacementValidator;
-import battleship.ui.validation.InvalidCoordinateException;
-import battleship.ui.validation.PlacementValidator;
-import battleship.ui.validation.ShipPlacementException;
-import battleship.validation.PositionOccupiedException;
+import battleship.ui.Prompt;
+import battleship.ui.PromptAction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
-        Printer.printBoard(board, BoardView.FULL_VIEW);
+        Map<Prompt, PromptAction> promptMap = new EnumMap<>(Prompt.class);
+        promptMap.put(Prompt.PLAYER_1_SETUP, () -> System.out.println("Player 1, place your ships on the game field:"));
+        promptMap.put(Prompt.PLAYER_2_SETUP, () -> System.out.println("Player 2, place your ships on the game field:"));
+        promptMap.put(Prompt.PASS_MOVE, () -> System.out.println(
+                "Press Enter and pass the move to another player"
+
+        ));
+        promptMap.put(Prompt.TAKE_SHOT, () -> System.out.println("Take a shot:"));
+        promptMap.put(Prompt.INVALID_COORDINATES, () -> System.out.println("You entered the wrong coordinates! Try again:"));
+        promptMap.put(Prompt.SHIP_PLACEMENT, new PromptAction() {
+            @Override
+            public void run() {
+                throw new UnsupportedOperationException("Use runWithShip for ship placement prompts.");
+            }
+
+            @Override
+            public void runWithShip(ShipType ship) {
+                System.out.println("Enter the coordinates of the " + ship.getName() + " (" + ship.getLength() + " cells):");
+            }
+        });
+
+        Map<ShotResult, Runnable> shotResultActions = new EnumMap<>(ShotResult.class);
+        shotResultActions.put(ShotResult.HIT, () -> System.out.println("You hit a ship!"));
+        shotResultActions.put(ShotResult.MISS, () -> System.out.println("You missed!"));
+        shotResultActions.put(ShotResult.SUNK, () -> System.out.println("You sank a ship!"));
+        shotResultActions.put(ShotResult.ALL_SHIPS_SUNK, () -> System.out.println("You sank the last ship. You won. Congratulations!"));
+
+        GameMediator mediator = new GameMediator(promptMap, shotResultActions);
 
         Scanner scanner = new Scanner(System.in);
+        mediator.setupPlayer(PlayerTurn.PLAYER_1, scanner, Prompt.PLAYER_1_SETUP);
 
-        for (ShipType ship : ShipType.values()) {
-            Printer.printShipPrompt(ship);
-            placeShip(ship, scanner, board);
-        }
+        mediator.transitionToNextPlayer(scanner, Prompt.PASS_MOVE);
 
-        Printer.printGameStart();
-        Printer.printBoard(board, BoardView.FOG_OF_WAR);
+        mediator.setupPlayer(PlayerTurn.PLAYER_2, scanner, Prompt.PLAYER_2_SETUP);
 
-        Printer.printTakeShot();
-
-        while (!board.allShipsSunk()) {
-            takeShot(scanner, board);
-        }
-
-    }
-
-    private static void placeShip(ShipType ship, Scanner scanner, Board board) {
-        Coordinate start, end;
-
-        while (true) {
-            try {
-                List<Coordinate> coordinates = getCoordinatesWithRetry(scanner, ship, board);
-                start = coordinates.get(0);
-                end = coordinates.get(1);
-            } catch (ShipPlacementException e) {
-                Printer.printError(e.getMessage());
-                continue;
-            }
-
-            int length = calculateShipLength(start, end);
-
-            if (ship.isValidLength(length)) {
-                break;
-            }
-
-            Printer.printError("Wrong length of the " + ship.getName() + ". Try again:");
-        }
-
-        try {
-            board.occupy(new Position(start.getRow(), start.getColumn()), new Position(end.getRow(), end.getColumn()));
-            Printer.printBoard(board, BoardView.FULL_VIEW);
-        } catch (PositionOccupiedException | ShipPlacementException e) {
-            Printer.printError(e.getMessage());
-            placeShip(ship, scanner, board);
-        }
-    }
-
-    public static int calculateShipLength(Coordinate start, Coordinate end) {
-        if (start.getRow() == end.getRow()) {
-            // Same row, different columns (horizontal placement)
-            return Math.abs(end.getColumn() - start.getColumn()) + 1;
-        } else {
-            // Same column, different rows (vertical placement)
-            return Math.abs(end.getRow() - start.getRow()) + 1;
-        }
-    }
-
-    private static List<Coordinate> getCoordinatesWithRetry(Scanner scanner, ShipType ship, Board board) {
-        List<Coordinate> coordinates = null;
-
-        while (coordinates == null) {
-            try {
-                coordinates = getValidCoordinates(ship, scanner, board);
-            } catch (InvalidCoordinateException e) {
-                Printer.printError(e.getMessage() + " Try again:");
-            }
-        }
-
-        return coordinates;
-    }
-
-    private static void takeShot(Scanner scanner, Board board) {
-        while (true) {
-            String input = scanner.nextLine();
-            Coordinate coordinate = new Coordinate(input);
-
-            if (!coordinate.isValid()) {
-                Printer.printError("You entered the wrong coordinates! Try again:");
-                continue;
-            }
-
-            Position shotPosition = new Position(coordinate.getRow(), coordinate.getColumn());
-            board.registerShot(shotPosition);
-            Printer.printBoard(board, BoardView.FOG_OF_WAR);
-
-            ShotResult lastShotResult = board.lastShotResult();
-            switch (lastShotResult) {
-                case HIT:
-                    Printer.printMessage("You hit a ship! Try again:");
-                    break;
-                case MISS:
-                    Printer.printMessage("You missed! Try again: ");
-                    break;
-                case SUNK:
-                    Printer.printMessage("You sank a ship! Specify a new target:");
-                    break;
-                case ALL_SHIPS_SUNK:
-                    Printer.printMessage("You sank the last ship. You won. Congratulations!");
-                    break;
-            }
-
-            break;
-        }
-    }
-
-    private static List<Coordinate> getValidCoordinates(ShipType ship, Scanner scanner, Board board) {
-        PlacementValidator compositeValidator = new CompositePlacementValidator(board, ship);
-
-        while (true) {
-            String input = scanner.nextLine();
-            List<String> coordinatesInput = Arrays.stream(input.split(" ")).toList();
-            List<Coordinate> coordinates = new ArrayList<>();
-
-            for (String coordinate : coordinatesInput) {
-                coordinates.add(new Coordinate(coordinate));
-            }
-
-            if (compositeValidator.validate(coordinates)) {
-                return coordinates;
-            } else {
-                throw new InvalidCoordinateException("Invalid coordinates or placement.");
-            }
+        boolean gameOver = false;
+        while (!gameOver) {
+            mediator.promptForNextTurn(() -> System.out.println("Press Enter and pass the move to another player"));
+            scanner.nextLine();
+            gameOver = mediator.playTurn(scanner);
+            mediator.switchTurn();
         }
     }
 }

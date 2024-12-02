@@ -22,4 +22,8 @@ public enum ShipType {
     public boolean isValidLength(int length) {
         return length == cells;
     }
+
+    public int getLength() {
+        return cells;
+    }
 }
