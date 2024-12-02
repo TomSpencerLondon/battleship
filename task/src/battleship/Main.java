@@ -32,6 +32,12 @@ public class Main {
                 System.out.println("Enter the coordinates of the " + ship.getName() + " (" + ship.getLength() + " cells):");
             }
         });
+        promptMap.put(Prompt.PLAYER_1_TURN, () -> {
+            System.out.println("Player 1, it's your turn:");
+        });
+        promptMap.put(Prompt.PLAYER_2_TURN, () -> {
+            System.out.println("Player 2, it's your turn:");
+        });
 
         Map<ShotResult, Runnable> shotResultActions = new EnumMap<>(ShotResult.class);
         shotResultActions.put(ShotResult.HIT, () -> System.out.println("You hit a ship!"));

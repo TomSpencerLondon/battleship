@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-02T04:13:41" hostname="tspencers-MacBook-Pro.local" time="0.331">
+<testsuite name="Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-02T04:32:06" hostname="tspencers-MacBook-Pro.local" time="0.329">
   <properties/>
-  <testcase name="start" classname="Tests" time="0.331"/>
+  <testcase name="start" classname="Tests" time="0.329"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Player 1, place your ships on the game field:
